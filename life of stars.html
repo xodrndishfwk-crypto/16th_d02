@@ -1,0 +1,2094 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THE LIFE OF A STAR - 질량이 결정하는 별의 탄생과 죽음</title>
+  <!-- 구글 본고딕(Noto Sans KR) 및 영어 Montserrat 폰트 적용 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================
+       1. 디자인 시스템 & 변수 설정
+       ========================================== */
+    :root {
+      --bg-space: #020208;
+      --bg-dark: #060610;
+      --bg-card: #0c0d21;
+      --bg-card-hover: #131533;
+      --color-primary: #ffffff;
+      --color-muted: #9fa4bf;
+      --color-star-blue: #38bdf8;
+      --color-star-lightblue: #bae6fd;
+      --color-star-orange: #f97316;
+      --color-star-red: #ef4444;
+      --color-nebula-purple: #a855f7;
+      --color-nebula-pink: #ec4899;
+      --color-gold: #fbbf24;
+      --max-width: 1200px;
+      --font-en: 'Montserrat', sans-serif;
+      --font-ko: 'Noto Sans KR', sans-serif;
+      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* 리셋 및 기본 스타일 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-space);
+      color: var(--color-primary);
+      font-family: var(--font-ko);
+      line-height: 1.7;
+      overflow-x: hidden;
+      word-break: keep-all;
+    }
+
+    /* 타이포그래피 */
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      color: var(--color-muted);
+      font-weight: 300;
+      font-size: 1rem;
+    }
+
+    strong {
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+
+    /* 공통 레이아웃 구조 */
+    section {
+      padding: 120px 20px;
+      position: relative;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .section-header h2 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--color-primary) 30%, var(--color-star-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-header p {
+      font-size: 1.15rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* 이미지 스타일 공통 */
+    .img-fluid {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    /* 버튼 스타일 공통 */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 32px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--color-star-blue), var(--color-nebula-purple));
+      color: #000000;
+      box-shadow: 0 4px 25px rgba(56, 189, 248, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 35px rgba(168, 85, 247, 0.6);
+      color: #000000;
+    }
+
+    /* ==========================================
+       2. 섹션별 스타일링
+       ========================================== */
+
+    /* [1] 히어로 섹션 */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* 천체 망원경 배경 이미지 */
+      background: linear-gradient(to bottom, rgba(2, 2, 8, 0.75) 0%, rgba(2, 2, 8, 0.9) 100%), 
+                  url('https://images.unsplash.com/photo-1543722530-d2c3201371e7?q=80&w=1920&auto=format&fit=crop') no-repeat center center;
+      background-size: cover;
+      text-align: center;
+      padding-top: 100px;
+      position: relative;
+    }
+
+    /* 히어로 그래픽 효과 (성운 느낌) */
+    .hero-bg-effect {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, rgba(56, 189, 248, 0.1) 50%, transparent 80%);
+      filter: blur(50px);
+      border-radius: 50%;
+      animation: pulse 10s infinite alternate;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+    }
+
+    .hero-title-group {
+      margin-bottom: 30px;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-en);
+      font-size: 1.3rem;
+      color: var(--color-star-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.35em;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .hero-title {
+      font-family: var(--font-en);
+      font-weight: 900;
+      font-size: 5rem;
+      line-height: 1.1;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #ffffff, #93c5fd, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-catchphrase {
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #cbd5e1;
+      margin-bottom: 35px;
+      font-style: italic;
+    }
+
+    .hero-description {
+      font-size: 1.15rem;
+      max-width: 750px;
+      margin: 0 auto 50px auto;
+      line-height: 1.9;
+    }
+
+    /* 그래픽 상징: 원시별의 빛 */
+    .hero-star-graphic {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 35px auto;
+      position: relative;
+    }
+
+    .hero-star-core {
+      width: 20px;
+      height: 20px;
+      background-color: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 35px;
+      left: 35px;
+      box-shadow: 0 0 25px 12px rgba(255, 255, 255, 0.9), 0 0 50px 25px rgba(56, 189, 248, 0.6);
+    }
+
+    .hero-star-ray {
+      position: absolute;
+      background: linear-gradient(to right, transparent, #fff, transparent);
+    }
+
+    .ray-h {
+      width: 100%;
+      height: 2px;
+      top: 44px;
+      left: 0;
+    }
+
+    .ray-v {
+      width: 2px;
+      height: 100%;
+      left: 44px;
+      top: 0;
+    }
+
+    /* [2] 모든 별의 시작 섹션 */
+    #origin {
+      background-color: var(--bg-dark);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      margin-top: 60px;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 130px;
+      left: 12%;
+      right: 12%;
+      height: 2px;
+      background: linear-gradient(to right, rgba(56, 189, 248, 0.1), var(--color-nebula-purple), rgba(56, 189, 248, 0.1));
+      z-index: 1;
+    }
+
+    .timeline-card {
+      background-color: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 0;
+      text-align: center;
+      transition: var(--transition);
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .timeline-image-wrapper {
+      height: 160px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .timeline-image-wrapper::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(to top, var(--bg-card), transparent);
+    }
+
+    .timeline-body {
+      padding: 25px 20px 30px 20px;
+      flex-grow: 1;
+    }
+
+    .timeline-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(56, 189, 248, 0.3);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+
+    .timeline-card:hover .timeline-image-wrapper img {
+      transform: scale(1.1);
+    }
+
+    .timeline-image-wrapper .diagram-image {
+      object-fit: contain;
+      background-color: #ffffff;
+      padding: 8px;
+    }
+
+    .timeline-card:hover .timeline-image-wrapper .diagram-image {
+      transform: none;
+    }
+
+    .step-number {
+      font-family: var(--font-en);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--color-star-blue);
+      margin-bottom: 10px;
+      display: inline-block;
+      line-height: 1;
+    }
+
+    .timeline-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 12px;
+    }
+
+    .timeline-card h3 span {
+      display: block;
+      font-family: var(--font-en);
+      font-size: 0.8rem;
+      color: var(--color-muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .timeline-card p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* [3] 별이 될 것인가 섹션 (분기 영역) */
+    #split {
+      background: linear-gradient(to bottom, var(--bg-dark), var(--bg-space));
+    }
+
+    .split-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      margin-top: 60px;
+      position: relative;
+    }
+
+    .split-divider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--color-star-blue), rgba(56, 189, 248, 0));
+      transform: translateX(-50%);
+    }
+
+    .split-branch {
+      background-color: var(--bg-card);
+      border-radius: 24px;
+      padding: 0;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .split-branch-image {
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .split-branch-image::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: linear-gradient(to top, var(--bg-card), transparent);
+    }
+
+    .split-branch-body {
+      padding: 40px;
+      flex-grow: 1;
+    }
+
+    .branch-left {
+      border-top: 5px solid var(--color-star-orange);
+    }
+    
+    .branch-right {
+      border-top: 5px solid var(--color-star-blue);
+    }
+
+    .branch-tag {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .branch-left .branch-tag {
+      background-color: rgba(249, 115, 22, 0.15);
+      color: var(--color-star-orange);
+    }
+
+    .branch-right .branch-tag {
+      background-color: rgba(56, 189, 248, 0.15);
+      color: var(--color-star-blue);
+    }
+
+    .branch-title {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .branch-title span {
+      display: block;
+      font-family: var(--font-en);
+      font-size: 1rem;
+      color: var(--color-muted);
+      font-weight: 400;
+      margin-top: 3px;
+    }
+
+    .branch-desc {
+      margin-bottom: 20px;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    /* [4] 질량 선택 상호작용 섹션 */
+    #mass-selection {
+      background-color: var(--bg-dark);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .mass-selector-container {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+
+    /* 상단 5개 선택 버튼 */
+    .mass-tabs {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .mass-tab-btn {
+      background-color: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 22px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      text-align: center;
+      transition: var(--transition);
+      color: var(--color-muted);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .mass-tab-btn h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      transition: var(--transition);
+      line-height: 1.3;
+    }
+
+    .mass-tab-btn span {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    .mass-tab-btn:hover {
+      background-color: var(--bg-card-hover);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* 현재 선택된 탭 활성화 상태 */
+    .mass-tab-btn.active {
+      background-color: rgba(56, 189, 248, 0.08);
+      border-color: var(--color-star-blue);
+      color: var(--color-primary);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.15);
+    }
+
+    .mass-tab-btn.active h3 {
+      color: var(--color-star-blue);
+    }
+
+    /* 하단 정보 디스플레이 카드 */
+    .mass-display-card {
+      background-color: var(--bg-card);
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 45px;
+      transition: var(--transition);
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .display-text-side {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .display-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 25px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .display-title h3 {
+      font-size: 2rem;
+      color: var(--color-primary);
+      margin-bottom: 5px;
+    }
+
+    .display-title p {
+      font-size: 1.05rem;
+      color: var(--color-star-blue);
+    }
+
+    .display-meta {
+      text-align: right;
+    }
+
+    .meta-item {
+      font-size: 0.95rem;
+      margin-bottom: 5px;
+    }
+
+    .meta-item span {
+      color: var(--color-star-blue);
+      font-weight: 700;
+    }
+
+    /* 진화 로드맵/경로 가상 타임라인 */
+    .roadmap-container {
+      margin-bottom: 30px;
+    }
+
+    .roadmap-title {
+      font-size: 1rem;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #94a3b8;
+    }
+
+    .roadmap-flow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .roadmap-node {
+      background-color: rgba(255, 255, 255, 0.03);
+      padding: 8px 18px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.3;
+      text-align: center;
+    }
+
+    .roadmap-node span {
+      display: block;
+      font-family: var(--font-en);
+      font-size: 0.7rem;
+      color: var(--color-muted);
+      margin-top: 1px;
+    }
+
+    .roadmap-arrow {
+      color: var(--color-star-blue);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .display-desc {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #cbd5e1;
+    }
+
+    .display-image-side {
+      height: 380px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    /* [5] 별의 중심에서는 무슨 일이 일어날까 섹션 */
+    #fusion-core {
+      background-color: var(--bg-space);
+    }
+
+    .fusion-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1.1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .fusion-info {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .fusion-info h3 {
+      font-size: 2.1rem;
+      color: var(--color-star-blue);
+    }
+
+    .fusion-info p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    /* CSS 고질량 항성 양파껍질 구조 그래픽 */
+    .stellar-onion-graphic {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .onion-container {
+      position: relative;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.02);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 40px rgba(168, 85, 247, 0.12);
+    }
+
+    /* 각 원소층 (중심으로 갈수록 무거움) */
+    .onion-layer {
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      transition: var(--transition);
+      cursor: help;
+      position: absolute;
+    }
+
+    /* 1층: 수소 */
+    .layer-h {
+      width: 350px;
+      height: 350px;
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      background-color: rgba(56, 189, 248, 0.03);
+    }
+    .layer-h::before {
+      content: '수소 층 (Hydrogen Shell)';
+      position: absolute;
+      top: 10px;
+      color: var(--color-star-lightblue);
+    }
+
+    /* 2층: 헬륨 */
+    .layer-he {
+      width: 280px;
+      height: 280px;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      background-color: rgba(168, 85, 247, 0.05);
+    }
+    .layer-he::before {
+      content: '헬륨 (Helium)';
+      position: absolute;
+      top: 10px;
+      color: var(--color-nebula-purple);
+    }
+
+    /* 3층: 탄소/산소 */
+    .layer-co {
+      width: 210px;
+      height: 210px;
+      border: 1px solid rgba(236, 72, 153, 0.2);
+      background-color: rgba(236, 72, 153, 0.07);
+    }
+    .layer-co::before {
+      content: '탄소(Carbon) / 산소(Oxygen)';
+      position: absolute;
+      top: 10px;
+      color: var(--color-nebula-pink);
+    }
+
+    /* 4층: 규소 */
+    .layer-si {
+      width: 140px;
+      height: 140px;
+      border: 1px solid rgba(249, 115, 22, 0.25);
+      background-color: rgba(249, 115, 22, 0.08);
+    }
+    .layer-si::before {
+      content: '규소 (Silicon)';
+      position: absolute;
+      top: 10px;
+      color: var(--color-star-orange);
+    }
+
+    /* 5층: 철(중심핵) */
+    .layer-fe {
+      width: 76px;
+      height: 76px;
+      background: radial-gradient(circle, #ef4444, #991b1b);
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+      color: white;
+      text-align: center;
+      line-height: 1.1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .layer-fe span {
+      font-size: 0.85rem;
+      font-weight: 900;
+    }
+    .layer-fe small {
+      font-size: 0.6rem;
+      opacity: 0.9;
+    }
+
+    /* [6] 세 가지 대표적인 최후 섹션 (카드 & 팝업) */
+    #end-states {
+      background-color: var(--bg-dark);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 35px;
+      margin-top: 60px;
+    }
+
+    .end-card {
+      background-color: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      padding: 0;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .end-card-image {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .end-card-image::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(to top, var(--bg-card), transparent);
+    }
+
+    .end-card-body {
+      padding: 30px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .end-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--color-star-blue);
+      box-shadow: 0 20px 45px rgba(56, 189, 248, 0.15);
+    }
+
+    .end-card:hover .end-card-image img {
+      transform: scale(1.08);
+    }
+
+    .end-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: var(--color-primary);
+    }
+
+    .end-card h3 span {
+      display: block;
+      font-family: var(--font-en);
+      font-size: 0.85rem;
+      color: var(--color-muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .end-card p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      flex-grow: 1;
+    }
+
+    .card-footer-tip {
+      margin-top: 25px;
+      font-size: 0.9rem;
+      color: var(--color-star-blue);
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* [7] 별의 죽음은 새로운 시작 섹션 (순환 과정) */
+    #recycling {
+      background: linear-gradient(to bottom, var(--bg-dark), var(--bg-space));
+    }
+
+    .recycling-container {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .recycling-content h3 {
+      font-size: 2rem;
+      color: var(--color-star-blue);
+      margin-bottom: 25px;
+    }
+
+    .recycling-content p {
+      line-height: 1.8;
+      margin-bottom: 20px;
+      font-size: 1.05rem;
+    }
+
+    /* 원형 순환 루프 다이어그램 */
+    .recycling-diagram {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      height: 440px;
+    }
+
+    .cycle-circle {
+      position: relative;
+      width: 340px;
+      height: 340px;
+      border: 2px dashed rgba(168, 85, 247, 0.25);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* 순환 고리 내부 텍스트 */
+    .cycle-center-text {
+      text-align: center;
+      max-width: 160px;
+    }
+
+    .cycle-center-text h4 {
+      font-size: 1.3rem;
+      color: var(--color-primary);
+      margin-bottom: 5px;
+    }
+
+    .cycle-center-text p {
+      font-family: var(--font-en);
+      font-size: 0.8rem;
+      color: var(--color-star-blue);
+      letter-spacing: 0.05em;
+    }
+
+    /* 순환 단계를 의미하는 노드들 */
+    .cycle-node {
+      position: absolute;
+      background-color: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .cycle-node span {
+      display: block;
+      font-family: var(--font-en);
+      font-size: 0.65rem;
+      color: var(--color-star-blue);
+      margin-top: 3px;
+    }
+
+    /* 원둘레에 노드 배치 */
+    .node-1 { top: -50px; left: calc(50% - 50px); border-color: rgba(56, 189, 248, 0.5); }
+    .node-2 { right: -50px; top: calc(50% - 50px); border-color: rgba(168, 85, 247, 0.5); }
+    .node-3 { bottom: -50px; left: calc(50% - 50px); border-color: rgba(236, 72, 153, 0.5); }
+    .node-4 { left: -50px; top: calc(50% - 50px); border-color: rgba(249, 115, 22, 0.5); }
+
+    /* [8] 철보다 무거운 원소 섹션 */
+    #heavy-elements {
+      background-color: var(--bg-dark);
+    }
+
+    .heavy-card {
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(19, 11, 40, 0.9) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: 28px;
+      padding: 60px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .heavy-content h3 {
+      font-size: 2.1rem;
+      margin-bottom: 25px;
+      color: var(--color-gold);
+    }
+
+    .heavy-content p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .heavy-visual {
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      border: 1px dashed rgba(251, 191, 36, 0.25);
+    }
+
+    .heavy-visual-image {
+      height: 180px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 25px;
+      border: 1px solid rgba(251, 191, 36, 0.1);
+    }
+
+    .heavy-element-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fbbf24 30%, #b45309);
+      color: #000;
+      font-weight: 900;
+      font-size: 1.6rem;
+      box-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+      margin: 10px;
+      font-family: var(--font-en);
+    }
+
+    .heavy-element-badge.uranium {
+      background: radial-gradient(circle, #a7f3d0 30%, #047857);
+      color: #064e3b;
+      box-shadow: 0 0 30px rgba(52, 211, 153, 0.5);
+    }
+
+    .heavy-caption {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: var(--color-muted);
+      line-height: 1.6;
+    }
+
+    /* [9] 마무리 CTA 섹션 */
+    #cta {
+      background: radial-gradient(circle at center, rgba(139, 92, 246, 0.15) 0%, var(--bg-space) 80%);
+      text-align: center;
+      padding: 140px 20px;
+    }
+
+    .cta-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .cta-content h2 {
+      font-size: 3rem;
+      line-height: 1.5;
+      margin-bottom: 45px;
+      background: linear-gradient(to right, #ffffff, var(--color-star-blue), var(--color-nebula-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btn-cta {
+      font-size: 1.15rem;
+      padding: 18px 40px;
+      animation: pulse-button 2s infinite ease-in-out;
+    }
+
+    /* [10] 푸터 */
+    footer {
+      background-color: #010104;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 70px 20px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .footer-credit {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+
+    .footer-credit span {
+      background: linear-gradient(135deg, var(--color-star-blue), var(--color-nebula-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .footer-sub {
+      font-family: var(--font-en);
+      font-size: 0.9rem;
+      color: #52526b;
+      letter-spacing: 0.15em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 25px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-links a {
+      color: var(--color-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--color-star-blue);
+    }
+
+    /* ==========================================
+       3. 팝업 모달 스타일링
+       ========================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(2, 2, 8, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-container {
+      background-color: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 28px;
+      width: 90%;
+      max-width: 650px;
+      padding: 45px;
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-overlay.open .modal-container {
+      transform: scale(1);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      background: none;
+      border: none;
+      color: var(--color-muted);
+      font-size: 2rem;
+      cursor: pointer;
+      transition: var(--transition);
+      line-height: 1;
+    }
+
+    .modal-close-btn:hover {
+      color: var(--color-primary);
+    }
+
+    .modal-header {
+      margin-bottom: 25px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 20px;
+    }
+
+    .modal-header h3 {
+      font-size: 2rem;
+      color: var(--color-star-blue);
+    }
+
+    .modal-header h3 span {
+      display: block;
+      font-family: var(--font-en);
+      font-size: 0.9rem;
+      color: var(--color-muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .modal-body {
+      color: #cbd5e1;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .modal-body p {
+      margin-bottom: 20px;
+    }
+
+    .modal-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ==========================================
+       4. 키프레임 애니메이션 정의
+       ========================================== */
+    @keyframes pulse {
+      0% {
+        transform: translate(-50%, -50%) scale(0.95);
+        opacity: 0.6;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.05);
+        opacity: 0.8;
+      }
+    }
+
+    @keyframes pulse-button {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 4px 25px rgba(56, 189, 248, 0.4);
+      }
+      50% {
+        transform: scale(1.04);
+        box-shadow: 0 8px 35px rgba(168, 85, 247, 0.6);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 4px 25px rgba(56, 189, 248, 0.4);
+      }
+    }
+
+    /* ==========================================
+       5. 반응형 미디어 쿼리
+       ========================================== */
+
+    /* 태블릿 스크린 (Max 1024px) */
+    @media (max-width: 1024px) {
+      .timeline {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+      }
+      
+      .timeline::before {
+        display: none; /* 연결선 제거 */
+      }
+
+      .split-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .split-divider {
+        display: none; /* 중앙 구분선 제거 */
+      }
+
+      .mass-tabs {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .mass-display-card {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .display-image-side {
+        height: 300px;
+      }
+
+      .fusion-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .stellar-onion-graphic {
+        order: -1; /* 그래픽을 텍스트 위로 올림 */
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .recycling-container {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .recycling-diagram {
+        order: -1;
+      }
+
+      .heavy-card {
+        grid-template-columns: 1fr;
+        padding: 40px;
+      }
+    }
+
+    /* 모바일 스크린 (Max 640px) */
+    @media (max-width: 640px) {
+      section {
+        padding: 80px 15px;
+      }
+
+      .hero-title {
+        font-size: 3.2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
+        letter-spacing: 0.2em;
+      }
+
+      .hero-catchphrase {
+        font-size: 1.2rem;
+      }
+
+      .section-header h2 {
+        font-size: 2rem;
+      }
+
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .split-branch-body {
+        padding: 25px;
+      }
+
+      .mass-tabs {
+        grid-template-columns: 1fr;
+      }
+
+      .mass-display-card {
+        padding: 25px 20px;
+      }
+
+      .display-header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .display-meta {
+        text-align: left;
+      }
+
+      .roadmap-flow {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .roadmap-arrow {
+        transform: rotate(90deg); /* 모바일 방향 전환 */
+        align-self: center;
+      }
+
+      .onion-container {
+        width: 300px;
+        height: 300px;
+      }
+
+      .layer-h { width: 290px; height: 290px; }
+      .layer-he { width: 230px; height: 230px; }
+      .layer-co { width: 170px; height: 170px; }
+      .layer-si { width: 110px; height: 110px; }
+      .layer-fe { width: 66px; height: 66px; }
+
+      .cycle-circle {
+        width: 260px;
+        height: 260px;
+      }
+
+      .cycle-center-text h4 {
+        font-size: 1.1rem;
+      }
+
+      .cycle-node {
+        width: 76px;
+        height: 76px;
+        font-size: 0.7rem;
+      }
+
+      .node-1 { top: -38px; left: calc(50% - 38px); }
+      .node-2 { right: -38px; top: calc(50% - 38px); }
+      .node-3 { bottom: -38px; left: calc(50% - 38px); }
+      .node-4 { left: -38px; top: calc(50% - 38px); }
+
+      .modal-container {
+        padding: 30px 20px;
+      }
+
+      .modal-header h3 {
+        font-size: 1.5rem;
+      }
+
+      .heavy-card {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- [1] 히어로 섹션 -->
+  <header id="hero">
+    <div class="hero-bg-effect" aria-hidden="true"></div>
+    <div class="container hero-content">
+      <div class="hero-star-graphic" aria-hidden="true">
+        <div class="hero-star-core"></div>
+        <div class="hero-star-ray ray-h"></div>
+        <div class="hero-star-ray ray-v"></div>
+      </div>
+      <div class="hero-title-group">
+        <p class="hero-subtitle">THE LIFE OF A STAR</p>
+        <h1 class="hero-title">THE LIFE OF<br>A STAR</h1>
+      </div>
+      <p class="hero-catchphrase">“같은 우주에서 태어나지만, 모든 별이 같은 삶을 사는 것은 아닙니다.”</p>
+      <p class="hero-description">
+        우주의 빈 공간을 배회하는 성간물질들이 모여 찬란하게 요동치는 성운이 되고, 스스로 자아를 갖춘 별이 되기까지.<br>
+        모든 존재들의 길고 위대한 일생과 운명은, 바로 그들이 태어나던 순간 얻게 된 <strong>초기 질량(Initial Mass)</strong>에 의해 결정됩니다.
+      </p>
+      <a href="#origin" class="btn btn-primary" aria-label="별의 일생 탐정 스크롤 이동">별의 일생 따라가기</a>
+    </div>
+  </header>
+
+  <!-- [2] 모든 별의 시작 섹션 -->
+  <section id="origin">
+    <div class="container">
+      <div class="section-header">
+        <h2>모든 별은 구름에서 시작됩니다</h2>
+        <p>차가운 우주의 물질들이 모여 뜨겁게 타오르는 하나의 생명이 탄생하기까지의 4단계 여정입니다.</p>
+      </div>
+      
+      <div class="timeline">
+        <!-- 1단계 -->
+        <div class="timeline-card">
+          <div class="timeline-image-wrapper">
+            <!-- 성간물질 이미지 -->
+            <img src="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=600&auto=format&fit=crop" alt="성간물질 이미지" class="img-fluid">
+          </div>
+          <div class="timeline-body">
+            <span class="step-number">01</span>
+            <h3>성간물질 <span>Interstellar Medium (ISM)</span></h3>
+            <p>우주 공간에 널리 퍼져 있는 미세한 수소, 헬륨 가스 성분과 극미한 고체 원소들입니다. 이 흩어진 우주의 씨앗들이 모든 가스 기둥의 어머니가 됩니다.</p>
+          </div>
+        </div>
+        <!-- 2단계 -->
+        <div class="timeline-card">
+          <div class="timeline-image-wrapper">
+            <!-- 성운 이미지 및 프리뷰를 위한 백업 URL 연결 -->
+            <img src="assets/images/nebula.png" onerror="this.src='https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=600&auto=format&fit=crop'" alt="성운 이미지" class="img-fluid">
+          </div>
+          <div class="timeline-body">
+            <span class="step-number">02</span>
+            <h3>성운 <span>Nebula</span></h3>
+            <p>성간물질이 특정 구역에 정교하게 모여들며 형성된 가스 구름입니다. 평균 온도가 약 10K(-263℃) 수준으로 떨어지면서 중력 붕괴를 일으키기 딱 알맞은 거대하고 조밀한 요람을 이룹니다.</p>
+          </div>
+        </div>
+        <!-- 3단계 -->
+        <div class="timeline-card">
+          <div class="timeline-image-wrapper">
+            <!-- 중력 수축 이미지 및 프리뷰를 위한 백업 URL 연결 -->
+            <img src="assets/images/gravitational-contraction.png" onerror="this.src='https://images.unsplash.com/photo-1538370965046-79c0d6907d47?q=80&w=600&auto=format&fit=crop'" alt="중력 수축과 복사압의 평형을 설명하는 도식" class="img-fluid diagram-image">
+          </div>
+          <div class="timeline-body">
+            <span class="step-number">03</span>
+            <h3>중력 수축 <span>Gravitational Contraction</span></h3>
+            <p>스스로가 가진 거대한 힘에 가스들이 소용돌이치며 안으로 함몰하듯이 뭉쳐집니다. 이 극단적인 밀집이 시작되면서 중심부는 마찰열로 엄청난 속도로 열이 솟아오릅니다.</p>
+          </div>
+        </div>
+        <!-- 4단계 -->
+        <div class="timeline-card">
+          <div class="timeline-image-wrapper">
+            <!-- 원시별 이미지 및 프리뷰를 위한 백업 URL 연결 -->
+            <img src="assets/images/protostar.png" onerror="this.src='https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?q=80&w=600&auto=format&fit=crop'" alt="원시별과 양극 방향의 물질 분출 이미지" class="img-fluid">
+          </div>
+          <div class="timeline-body">
+            <span class="step-number">04</span>
+            <h3>원시별 <span>Protostar</span></h3>
+            <p>계속 모여드는 기체들의 열기로 불타오르기 시작한 초기 단계입니다. 스스로 적외선을 방출하지만 아직 중심부 온도가 낮아 본궤도의 핵융합 에너지원에는 이르지 못한 단계입니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- [3] 별이 될 것인가 섹션 (분기) -->
+  <section id="split">
+    <div class="container">
+      <div class="section-header">
+        <h2>모든 원시별이 진짜 별이 되는 것은 아닙니다</h2>
+        <p>수축하며 온도를 차곡차곡 축적하던 원시별은 중심 핵의 온도 장벽인 1,000만 K를 넘어서는지에 따라 근본적으로 다른 종류의 존재가 됩니다.</p>
+      </div>
+
+      <div class="split-container">
+        <div class="split-divider" aria-hidden="true"></div>
+        
+        <!-- 갈색왜성 분기 -->
+        <div class="split-branch branch-left">
+          <div class="split-branch-image">
+            <!-- 갈색왜성 이미지 및 프리뷰를 위한 백업 URL 연결 -->
+            <img src="assets/images/brown-dwarf.png" onerror="this.src='https://images.unsplash.com/photo-1614314107204-d7209c4036c7?q=80&w=800&auto=format&fit=crop'" alt="갈색왜성 상상도" class="img-fluid" style="object-fit: contain; background-color: #000000;">
+          </div>
+          <div class="split-branch-body">
+            <span class="branch-tag">질량 부족 (태양의 약 8.3% 미만)</span>
+            <h3 class="branch-title">갈색왜성 <span>Brown Dwarf</span></h3>
+            <p class="branch-desc">
+              중력이 약해 수축이 충분히 강하게 진행되지 못했습니다. 결국 중심핵의 온도가 수소 핵융합 장벽인 <strong>1,000만 K</strong>에 도달하는 데 처참히 실패하며 수축을 멈춘 채, 내부의 미열만 점진적으로 소모하며 우주의 미아가 됩니다.
+            </p>
+          </div>
+        </div>
+
+        <!-- 주계열성 분기 -->
+        <div class="split-branch branch-right">
+          <div class="split-branch-image">
+            <!-- 주계열성 이미지 및 프리뷰를 위한 백업 URL 연결 -->
+            <img src="assets/images/main-sequence-sun.png" onerror="this.src='https://images.unsplash.com/photo-1614313913007-2b4ae8ce32d6?q=80&w=800&auto=format&fit=crop'" alt="대표적인 주계열성인 태양" class="img-fluid">
+          </div>
+          <div class="split-branch-body">
+            <span class="branch-tag">질량 충분 (태양의 약 8.3% 이상)</span>
+            <h3 class="branch-title">주계열성 <span>Main Sequence</span></h3>
+            <p class="branch-desc">
+              가스 뭉치의 자체 질량이 임계점을 완벽히 넘겼습니다. 마침내 중심 영역이 1,000만 K를 훌쩍 넘어섰고, 영광스러운 수소 원자들의 핵 결합이 개시되며 중력의 압축과 빛의 방출 압력이 완벽한 균형을 누리는 <strong>'성공한 항성'</strong>이 탄생합니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- [4] 질량 선택 상호작용 섹션 -->
+  <section id="mass-selection">
+    <div class="container">
+      <div class="section-header">
+        <h2>별의 질량을 선택해 운명을 확인하세요</h2>
+        <p>각기 다른 무게라는 천부적인 운명을 지닌 별들이 세부적으로 어떻게 나뉘어 우주 공간에 어떠한 흔적들을 남기는지 상세 진화 과정을 선택해 보세요.</p>
+      </div>
+
+      <div class="mass-selector-container">
+        <!-- 5개 선택 탭 버튼 -->
+        <div class="mass-tabs" role="tablist">
+          <button class="mass-tab-btn" role="tab" aria-selected="false" data-mass="brown">
+            <h3>갈색왜성</h3>
+            <span>Brown Dwarf</span>
+          </button>
+          <button class="mass-tab-btn" role="tab" aria-selected="false" data-mass="low">
+            <h3>작은 주계열성</h3>
+            <span>Red Dwarf</span>
+          </button>
+          <button class="mass-tab-btn active" role="tab" aria-selected="true" data-mass="medium">
+            <h3>태양 유사 별</h3>
+            <span>Sun-like Star</span>
+          </button>
+          <button class="mass-tab-btn" role="tab" aria-selected="false" data-mass="high">
+            <h3>대질량 별</h3>
+            <span>Massive Star</span>
+          </button>
+          <button class="mass-tab-btn" role="tab" aria-selected="false" data-mass="super">
+            <h3>극대질량 별</h3>
+            <span>Supermassive Star</span>
+          </button>
+        </div>
+
+        <!-- 실시간 내용이 업데이트되는 카드 영역 -->
+        <div class="mass-display-card" id="mass-display-target">
+          <!-- JS를 통해 동적 생성됨 (기본값: 태양과 비슷한 별) -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- [5] 별의 중심에서는 무슨 일이 일어날까 섹션 -->
+  <section id="fusion-core">
+    <div class="container">
+      <div class="section-header">
+        <h2>별은 원소를 만드는 우주의 용광로입니다</h2>
+        <p>단순한 가스인 수소로 가득 찼던 천체의 중심부는 상상조차 불허하는 에너지를 머금으며 고도의 화학적 기적들을 직조하기 시작합니다.</p>
+      </div>
+
+      <div class="fusion-grid">
+        <div class="fusion-info">
+          <h3>양파 껍질처럼 정교하게 타오르는 원소층</h3>
+          <p>
+            탄생한 별의 생애 초기와 대부분의 순간은 수소 원자핵 네 개가 합쳐져 하나의 헬륨이 되는 <strong>수소 핵융합(Hydrogen Fusion)</strong>에 전념합니다. 이후 수소를 다 소모하고 중심온도가 더 높아지면 헬륨을 도구로 삼아 탄소, 산소를 빚어내기 시작합니다.
+          </p>
+          <p>
+            태양보다 무거운 고질량 별들은 중력이라는 막강한 망치 덕에 중심핵을 무시무시하게 압착하여 온도 장벽을 극단적으로 뛰어넘습니다. 중심핵 온도가 도달하는 한계 수준에 맞춰 탄소, 산소, 네온, 규소 순으로 원자번호가 더 무거운 원소들의 순차적인 핵융합이 연속적으로 개시됩니다.
+          </p>
+          <p>
+            결국 안쪽으로 파고들수록 극도의 고열과 압력으로 벼려진 원소층이 한 겹씩 늘어나 정교한 <strong>양파 껍질(Onion-skin Layer)</strong> 형태를 구성하게 됩니다.
+          </p>
+          <p>
+            그러나 이 순조로운 창조의 도가니도 중심핵 자리에 <strong>철(Fe / Iron)</strong>이 안착하는 순간 장엄하게 중단됩니다. 철 원자핵은 모든 원소 중에서 가장 완벽한 형태적 결속력을 가집니다. 때문에 철을 합쳐 그 이상으로 무거운 물질을 만들려고 시도할 경우, 별은 에너지를 내뿜어 중심을 지지하기는커녕 되려 <strong>막강한 에너지를 스스로 빨아들여 흡수</strong>하게 됩니다.
+          </p>
+          <p>
+            기둥 역할을 하던 에너지를 잃은 순간, 수백만 년을 자랑스럽게 타오르던 대항성은 제자리에서 단 1초도 지탱하지 못한 채 안쪽으로 무너져 내리는 파멸의 국면을 마주하게 됩니다.
+          </p>
+        </div>
+
+        <div class="stellar-onion-graphic">
+          <div class="onion-container" aria-label="고질량 별 내부 원소층 그래픽">
+            <!-- 수소 층 -->
+            <div class="onion-layer layer-h">
+              <!-- 헬륨 층 -->
+              <div class="onion-layer layer-he">
+                <!-- 탄소 산소 층 -->
+                <div class="onion-layer layer-co">
+                  <!-- 규소 층 -->
+                  <div class="onion-layer layer-si">
+                    <!-- 철 중심핵 -->
+                    <div class="onion-layer layer-fe">
+                      <span>철 (Fe)</span>
+                      <small>핵융합의 한계</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- [6] 세 가지 대표적인 최후 섹션 (카드 & 팝업) -->
+  <section id="end-states">
+    <div class="container">
+      <div class="section-header">
+        <h2>우주를 뒤흔든 뒤 남겨진 세 가지 유산</h2>
+        <p>수명이 다한 별들이 외부 가스 껍질을 부드럽게 방출하거나 격렬하게 부서져 사방으로 가루를 흩날린 후, 극한의 공간에 새겨두고 가는 흔적들입니다.</p>
+      </div>
+
+      <div class="cards-grid">
+        <!-- 카드 1: 백색왜성 -->
+        <div class="end-card" data-modal="wd" aria-haspopup="dialog">
+          <div class="end-card-image">
+            <!-- 백색왜성 이미지 및 프리뷰 백업 연결 -->
+            <img src="assets/images/white-dwarf.png" onerror="this.src='https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600&auto=format&fit=crop'" alt="시리우스 B 백색왜성 이미지" class="img-fluid" style="object-fit: contain; background-color: #000000;">
+          </div>
+          <div class="end-card-body">
+            <h3>백색왜성 <span>White Dwarf</span></h3>
+            <p>보통 크기의 항성이 외각층을 유연하게 방출하고 남긴 뜨겁고 고밀도의 탄소-산소 결정 물질의 정수이자 은하의 등대입니다.</p>
+            <span class="card-footer-tip">자세히 보기 →</span>
+          </div>
+        </div>
+
+        <!-- 카드 2: 중성자별 -->
+        <div class="end-card" data-modal="ns" aria-haspopup="dialog">
+          <div class="end-card-image">
+            <!-- 중성자별 이미지 및 프리뷰 백업 연결 -->
+            <img src="assets/images/neutron-star.jpg" onerror="this.src='https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=600&auto=format&fit=crop'" alt="강한 자기장을 지닌 중성자별 상상도" class="img-fluid">
+          </div>
+          <div class="end-card-body">
+            <h3>중성자별 <span>Neutron Star</span></h3>
+            <p>초신성 폭발 중심부에 잔류한 초고밀도 천체로, 양성자와 전자가 극단으로 압착되어 소립자인 중성자 덩어리만으로 융합된 금속성과 자기의 집약체입니다.</p>
+            <span class="card-footer-tip">자세히 보기 →</span>
+          </div>
+        </div>
+
+        <!-- 카드 3: 블랙홀 -->
+        <div class="end-card" data-modal="bh" aria-haspopup="dialog">
+          <div class="end-card-image">
+            <!-- 제공해주신 고해상도 실제 블랙홀 이미지(image_fd85be.jpg) 및 Unsplash 백업 연결 -->
+            <img src="assets/images/black-hole.png" onerror="this.src='https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=600&auto=format&fit=crop'" alt="강착 원반을 지닌 블랙홀 상상도" class="img-fluid">
+          </div>
+          <div class="end-card-body">
+            <h3>블랙홀 <span>Black Hole</span></h3>
+            <p>중력을 통제할 힘이 전무해진 공간의 특이점으로 수렴된 질량입니다. 시공간을 가파르게 찢어 무한한 함정을 뚫어두어 빛마저도 가두어 버리는 영역입니다.</p>
+            <span class="card-footer-tip">자세히 보기 →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- [7] 별의 죽음은 새로운 시작 섹션 (순환 과정) -->
+  <section id="recycling">
+    <div class="container">
+      <div class="section-header">
+        <h2>별이 남긴 물질은 다시 우주로 돌아갑니다</h2>
+        <p>죽음이라는 파멸 뒤에는 가루가 된 우주의 유해들이 뭉치며, 다음 세대의 영생을 기약하는 자양분이 심어집니다.</p>
+      </div>
+
+      <div class="recycling-container">
+        <div class="recycling-content">
+          <h3>멈추지 않는 우주의 순환 고리</h3>
+          <p>
+            수십 억 년의 고통스러운 세월 동안 중심핵이라는 용광로에서 탄소, 산소, 규소, 철 같은 다채로운 원소들을 정성껏 빚어내던 찬란한 항성들은, 일생의 마지막 막바지(행성상성운의 방출 혹은 사방으로 대폭발을 자아내는 초신성 파동)를 통해 그들의 피땀 어린 자식 같은 무거운 고체 원소 조각들을 우주 도처에 남김없이 쏟아붓습니다.
+          </p>
+          <p>
+            이 장엄하게 부유하는 연기 조각들은 우주의 넓은 허허벌판을 거닐다가 온도 에너지를 빼앗기며 점차 식어내려, 또 다른 세대의 고밀도 <strong>성간물질(ISM)</strong> 영역을 새롭게 이룩하게 됩니다.
+          </p>
+          <p>
+            그리고 그 성간 요람 안에서 중력의 압축이라는 대대적 협업이 수천만 년에 걸쳐 새로 기획되고, 과거보다 훨씬 복잡다단한 광물질을 풍성히 내재한 <strong>2세대의 별들과 비옥한 흙을 품은 풍족한 골격의 신생 행성계</strong>가 움트기 시작합니다. 지금 당신의 피를 도는 철분, 뼈를 채운 칼슘 조각들은 수십억 년 전 은하 깊은 곳에서 찬란히 무너져간 어떤 무명 항성의 영광스런 유산입니다.
+          </p>
+        </div>
+
+        <div class="recycling-diagram">
+          <div class="cycle-circle" aria-label="항성 물질 순환 루프 다이어그램">
+            <div class="cycle-center-text">
+              <h4>물질의 윤회</h4>
+              <p>Stellar Recycling</p>
+            </div>
+            <!-- 순환 단계 노드들 -->
+            <div class="cycle-node node-1">
+              성간물질
+              <span>01. ISM</span>
+            </div>
+            <div class="cycle-node node-2">
+              성운 & 탄생
+              <span>02. Nebula & Birth</span>
+            </div>
+            <div class="cycle-node node-3">
+              원소 융합
+              <span>03. Elements</span>
+            </div>
+            <div class="cycle-node node-4">
+              성 외풍 & 폭발
+              <span>04. Dispersion</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- [8] 철보다 무거운 원소 섹션 -->
+  <section id="heavy-elements">
+    <div class="container">
+      <div class="heavy-card">
+        <div class="heavy-content">
+          <h3>그렇다면 금과 우라늄은 어디에서 왔을까요?</h3>
+          <p>
+            조금 전 항성 진화의 일반적인 로드맵 상에서는 가장 안정도가 절정에 이른 철(Fe)까지만 제조가 허락된다고 보았습니다. 그렇다면 지구의 깊숙한 곳이나 장식장에 보관된 금(Au), 백금(Pt)이나 최첨단의 우라늄(U)처럼 철보다도 압도적으로 중량이 무거운 특급 원소들은 어떻게 성운 도처에 존재하게 된 것일까요?
+          </p>
+          <p>
+            이들은 상식적인 별의 생존 기조 하에서는 생성되지 못합니다. 이 희소한 보물들의 기원은 극강의 밀도를 가진 존재인 <strong>중성자별 간의 충돌 병합(Kilonova)</strong>이나, 수명이 짧은 초거성 중심부가 일순간에 무너지며 막강한 에너지가 사방을 강타하는 특수한 대폭발 국면에 있습니다.
+          </p>
+          <p>
+            지극히 압축되었던 상상 불가 급의 소립자들이 대충돌하며 고온의 중성자들이 우주 공간으로 무수히 뿜어지는 비좁은 찰나, 철과 같은 기본 원자핵에 미처 결합 상태를 고집할 틈도 주지 않고 수백 수천 개의 중성자가 속사포처럼 달라붙어 축적됩니다. 이 기이한 중성자 밀착 현상을 <strong>급속 중성자 포획 과정(r-process)</strong>이라 일컬으며, 이 기적에 의해 무거운 금빛 원소들과 영겁의 생을 자랑하는 우라늄의 태동이 비로소 완성됩니다.
+          </p>
+        </div>
+        <div class="heavy-visual">
+          <div class="heavy-visual-image">
+            <!-- 킬로노바 충돌 이미지 -->
+            <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=600&auto=format&fit=crop" alt="킬로노바 중성자별 충돌 병합 이미지" class="img-fluid">
+          </div>
+          <div>
+            <div class="heavy-element-badge" aria-label="금 원소 기호">Au</div>
+            <div class="heavy-element-badge uranium" aria-label="우라늄 원소 기호">U</div>
+          </div>
+          <p class="heavy-caption">우주에서 가장 격렬하고 참혹한 대재앙의 비명 속에서만,<br>영롱한 금빛 원소가 빚어질 수 있었습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- [9] 마무리 CTA 섹션 -->
+  <section id="cta">
+    <div class="cta-content container">
+      <h2>“별의 삶은 끝나지만,<br>별이 만든 물질의 이야기는 끝나지 않습니다.”</h2>
+      <a href="#mass-selection" class="btn btn-primary btn-cta" id="cta-reset-btn" aria-label="시뮬레이션 초기화 및 탐색 섹션으로 이동">나의 별 운명 다시 선택하기</a>
+    </div>
+  </section>
+
+  <!-- [10] 푸터 -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-credit">Created by <span>Kim YeongUng</span></div>
+      <div class="footer-sub">ASTRONOMY &middot; STELLAR EVOLUTION &middot; CURIOSITY</div>
+      <div class="footer-links">
+        <a href="https://ko.wikipedia.org/wiki/%ED%95%AD%EC%84%B1_%EC%A7%84%ED%99%94" target="_blank" rel="noopener">항성 진화 알아보기</a>
+        <a href="https://ko.wikipedia.org/wiki/%ED%95%B5%EC%融合" target="_blank" rel="noopener">핵융합 원리</a>
+        <a href="https://ko.wikipedia.org/wiki/R-%EA%B3%BC%EC%A0%95" target="_blank" rel="noopener">급속 중성자 포획</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 상세 정보용 팝업 모달창 구조 -->
+  <div class="modal-overlay" id="end-state-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-container">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="팝업 닫기">&times;</button>
+      <div class="modal-header">
+        <h3 id="modal-title">천체 제목</h3>
+      </div>
+      <div class="modal-body" id="modal-body-content">
+        <!-- JS를 통해 동적 생성됨 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       6. JAVASCRIPT 상호작용 구현
+       ========================================== -->
+  <script>
+    /* ==========================================================================
+       [A] 별의 질량 선택 시뮬레이션 데이터 정의 (총 5가지 분기)
+       ========================================================================== */
+    const massData = {
+      brown: {
+        title: "갈색왜성 (Brown Dwarf)",
+        sub: "안정적인 핵융합에 이르지 못한 실패한 항성",
+        lifespan: "없음 (에너지를 생산하지 못함)",
+        remnant: "천천히 아주 길게 식어가는 가스 천체 구체",
+        image: "assets/images/brown-dwarf.png",
+        imageFit: "contain",
+        fallback: "https://images.unsplash.com/photo-1614314107204-d7209c4036c7?q=80&w=600&auto=format&fit=crop",
+        roadmap: [
+          { ko: "성간물질", en: "ISM" },
+          { ko: "성운", en: "Nebula" },
+          { ko: "원시별", en: "Protostar" },
+          { ko: "갈색왜성", en: "Brown Dwarf" }
+        ],
+        desc: `
+          태양 질량의 단 <strong>8.3% 미만</strong>에 그쳐, 우주의 혹독한 중력 압축을 충분히 이겨내지 못한 원시 가스 집합체들의 아쉬운 종점입니다.<br><br>
+          중심부 부피와 압력을 극으로 밀어붙일 물질의 총량이 빈약했기 때문에 핵 온도가 1,000만 K의 고지 아래에 영원히 머물게 됩니다. 주계열성의 영광에 입성하지 못했으며, 우주의 나이보다 아득히 오랜 시간에 걸쳐 적외선 열 방출만 지속하며 식어버리는, 실패의 낙인이 찍힌 미열 천체입니다.
+        `
+      },
+      low: {
+        title: "작은 주계열성 (Red Dwarf)",
+        sub: "우주에서 가장 길고 조용히 타오르는 영원의 지배자",
+        lifespan: "수천억 년 ~ 수조 년",
+        remnant: "수축하여 식어버린 조밀한 가스 헬륨 핵구",
+        image: "assets/images/red-dwarf.png",
+        fallback: "https://images.unsplash.com/photo-1543722530-d2c3201371e7?q=80&w=600&auto=format&fit=crop",
+        roadmap: [
+          { ko: "성간물질", en: "ISM" },
+          { ko: "성운", en: "Nebula" },
+          { ko: "원시별", en: "Protostar" },
+          { ko: "적색왜성", en: "Red Dwarf" },
+          { ko: "장기 냉각 잔해", en: "Helium Dwarf" }
+        ],
+        desc: `
+          태양 질량의 약 <strong>8.3%에서 50% 사이</strong>에 속해 아슬아슬하게 불꽃을 켠 극소 항성군인 <strong>적색왜성(Red Dwarf)</strong>들의 경로입니다.<br><br>
+          이들은 가용 수소 연료량 자체는 무척 적지만, 대류 순환이 항성 전체 면적에서 끝없이 활성화되어 중심핵만 수소를 소모하는 것이 아니라 별 내부에 분포한 모든 수소를 바닥까지 아주 천천히 골고루 소비합니다.<br><br>
+          따라서 연료 아낌과 점진적 연소 덕분에 <strong>수천억 년에서 최대 수조 년</strong>이라는 불멸에 가까운 긴 시간 동안 빛을 발하며, 중심부가 폭발적으로 붕괴해 초거성이 되거나 적색거성이 되지 못하고 아주 조용히 최후에 도달해 단단하고 차가운 우주의 암석 형태로 굳어가게 됩니다.
+        `
+      },
+      medium: {
+        title: "태양 유사 별 (Sun-like Star)",
+        sub: "우리의 근원인 태양이 마주할 아름다운 여정",
+        lifespan: "약 100억 년 (10 Billion Years)",
+        remnant: "탄소-산소 기반 백색왜성 및 은하 성운",
+        image: "assets/images/main-sequence-sun.png",
+        fallback: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=600&auto=format&fit=crop",
+        roadmap: [
+          { ko: "성간물질", en: "ISM" },
+          { ko: "성운", en: "Nebula" },
+          { ko: "원시별", en: "Protostar" },
+          { ko: "주계열성", en: "Main Sequence" },
+          { ko: "적색거성", en: "Red Giant" },
+          { ko: "행성상성운", en: "Planetary Nebula" },
+          { ko: "백색왜성", en: "White Dwarf" }
+        ],
+        desc: `
+          우리 태양을 비롯해 우주의 안정을 받치는 <strong>태양 질량 0.5배에서 8배 대역</strong>의 항성들이 밟아나가는 우아한 여정입니다.<br><br>
+          안정적인 주계열 상태에서 질서 정연하게 100억 년 동안 내부 수소 가스를 소비한 뒤, 중심핵의 불길이 바깥으로 향하며 외피가 엄청나게 비정상적으로 팽창하여 은하 속 <strong>적색거성(Red Giant)</strong>의 상태에 돌입합니다.<br><br>
+          수명이 마칠 즈음 내부 중력 밀착이 한계에 부딪치고, 부풀어 오른 가벼운 물질 가스들을 <strong>행성상성운(Planetary Nebula)</strong>의 눈부신 화염 띠 형태로 사방에 부적절하지 않게 유실시키고 중심핵에 남은 단단한 탄소-산소 결정체인 <strong>백색왜성(White Dwarf)</strong> 잔해를 영원한 화석처럼 남겨 둡니다.
+        `
+      },
+      high: {
+        title: "대질량 별 (Massive Star)",
+        sub: "금속성의 껍질을 쌓아 올린 우주의 눈부신 거인",
+        lifespan: "수천만 년 (Short & Intense)",
+        remnant: "초고밀도로 찌그러진 자전성 중성자별",
+        image: "assets/images/red-giant.jpg",
+        fallback: "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=600&auto=format&fit=crop",
+        roadmap: [
+          { ko: "성간물질", en: "ISM" },
+          { ko: "성운", en: "Nebula" },
+          { ko: "원시별", en: "Protostar" },
+          { ko: "고질량 주계열성", en: "Massive Main Sequence" },
+          { ko: "적색초거성", en: "Red Supergiant" },
+          { ko: "초신성 폭발", en: "Supernova" },
+          { ko: "중성자별", en: "Neutron Star" }
+        ],
+        desc: `
+          <strong>태양 무게의 8배에서 25배</strong>에 이르는 무겁고 활기가 넘치는 우주 극상의 대질량 거성들이 거치는 격렬한 진화 과정입니다.<br><br>
+          막대한 가스 연료를 사치스럽게 퍼부으며 고온으로 에너지를 폭사시키는 탓에, 채 수천만 년이라는 가파르고 찰나의 순간에 생애를 한순간 소진하고 이내 <strong>적색초거성(Red Supergiant)</strong>으로 급부상합니다. 양파 같은 껍질층 아래 철(Fe) 중심핵을 형성한 후 더 이상의 생존 에너지를 만들지 못하고 주체 불가 급의 자체 중력 압력을 극복하지 못해 순식간에 우주적 대폭발인 <strong>초신성(Supernova)</strong> 폭발을 격동적으로 유발합니다.<br><br>
+          그 장엄한 유해 중심부에, 무자비하게 찌그러져 원자들의 빈틈이 소멸한 고체 구체인 <strong>중성자별(Neutron Star)</strong>을 새롭고 극단적인 유산으로 존립시킵니다.
+        `
+      },
+      super: {
+        title: "극대질량 별 (Supermassive Star)",
+        sub: "물리 법칙마저 굴복시킨 시공간의 무한한 지배자",
+        lifespan: "수백만 년 (Extremely Short)",
+        remnant: "빛마저 영원히 가둔 영원의 함정 블랙홀",
+        image: "assets/images/betelgeuse-comparison.jpeg",
+        imageFit: "contain",
+        fallback: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=600&auto=format&fit=crop",
+        roadmap: [
+          { ko: "성간물질", en: "ISM" },
+          { ko: "성운", en: "Nebula" },
+          { ko: "원시별", en: "Protostar" },
+          { ko: "극대질량 주계열성", en: "Supermassive Main Sequence" },
+          { ko: "청색초거성", en: "Blue Supergiant" },
+          { ko: "초신성 / 극초신성", en: "Hypernova" },
+          { ko: "블랙홀", en: "Black Hole" }
+        ],
+        desc: `
+          <strong>태양 무게의 최소 25배 이상</strong>을 가볍게 점령하는 우주의 절대 강자이자 시공간의 절대 군주들입니다.<br><br>
+          우주에서 가장 격렬한 생존 압박을 받기 때문에 수명이 수백만 년 전후로 대단히 짧습니다. 상상을 초월하는 초신성을 넘어선 <strong>극초신성(Hypernova)</strong>이라는 압도적 재앙을 일으키며 폭멸합니다.<br><br>
+          이들이 무너져 내릴 때는 중성자들 사이에 작용하는 저항력 마저 무게로 가볍게 압도하여 무너지기 때문에, 부피가 한계 없이 무한히 작아져 결국 공간에 무한한 굴절의 마침표를 찍는 은하의 절대 무덤 <strong>블랙홀(Black Hole)</strong>로 그 위대한 최후를 완성 짓습니다.
+        `
+      }
+    };
+
+    /* ==========================================================================
+       [B] 백색왜성, 중성자별, 블랙홀 팝업 상세 해설 데이터 정의
+       ========================================================================== */
+    const modalContents = {
+      wd: {
+        title: "백색왜성 (White Dwarf / 白色矮星)",
+        content: `
+          <p>태양과 유사한 중량의 중간 질량 항성이 일생의 종착지에 다다른 후, 껍질처럼 감싸고 있던 외부 물질층을 행성상성운으로 완전히 연무하듯 뿜어내고 핵심부 탄소와 산소의 알맹이만 조밀하게 축소되어 남겨진 은하의 화석 구슬입니다.</p>
+          <p>크기는 비록 푸른 우리 지구만 하지만 질량 수준은 태양과 호형호제할 정도의 중량을 응집하고 있어, 단 한 조각의 티스푼 무게가 수 톤에 달하는 밀도로 이륙되어 있습니다.</p>
+          <p>자체적인 핵융합은 더 이상 실행할 수 없으므로, 아주 조밀한 축퇴 압력 하에 수백억 년 동안 보유하고 있는 미열을 차갑게 밖으로 우주 전체에 흘려보내는 것이 전부입니다.</p>
+        `
+      },
+      ns: {
+        title: "중성자별 (Neutron Star / 中性子星)",
+        content: `
+          <p>태양 무게의 8배에서 25배 사이에 속하는 대형 항성들이 화려한 초신성 파멸을 맞이할 때 발생하는 중력 수축의 격변으로 빚어지는 우주 최고의 초강력 고체 물질입니다.</p>
+          <p>원자를 구성하고 있던 전자와 양성자 구조를 중력 붕괴의 힘이 극강으로 찌그러뜨려, 서로 융합된 중성자들만으로 꽉 찬 구체가 형성된 기이한 우주 유물입니다. 불과 반경 10~15km 수준의 비좁은 중심 구체 속에 태양 무게 이상의 모든 물리량이 수렴해 있습니다.</p>
+          <p>지극히 맹렬한 중력의 힘뿐만 아니라, 자전 속도가 1초에 수백 바퀴씩 격하게 회전하며 뿜는 자기장과 우주 전파 제트류는 심우주의 가장 위협적이면서도 영롱한 물리적 상징이기도 합니다.</p>
+        `
+      },
+      bh: {
+        title: "블랙홀 (Black Hole / 黑洞)",
+        content: `
+          <p>태양 질량의 25배를 상회하는 초대형 항성들이 붕괴할 때, 중심에 작용하는 질량의 압력을 저지할 소립자의 축퇴 저항력이 완전히 붕괴하면서 발생하는 무한 수축의 영원한 수수께끼입니다.</p>
+          <p>물질의 모든 틈을 분쇄하여 하나의 극소 단위 점인 특이점(Singularity)으로 압착시켜 버리기 때문에, 밀도와 시공간의 굴절 수준이 한계가 없이 수렴합니다.</p>
+          <p>그 어둠의 함정 주변부는 우주의 한계 탈출 속도인 광속마저 뛰어넘는 지점인 '사건의 지평선(Event Horizon)'을 형성하며, 그 경계선을 침범하는 빛을 포함한 우주의 모든 물리 법칙들을 암흑 속에 고독하게 가두어 버립니다.</p>
+        `
+      }
+    };
+
+    /* ==========================================================================
+       [C] DOM 요소 선택 및 이벤트 바인딩
+       ========================================================================== */
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      // 1. 별의 질량 선택 UI 렌더러 함수
+      const renderMassContent = (massKey) => {
+        const displayContainer = document.getElementById("mass-display-target");
+        const data = massData[massKey];
+        if (!data) return;
+
+        // 로드맵 항목 HTML 배열 생성
+        const roadmapHTML = data.roadmap.map((step, index) => {
+          if (index === data.roadmap.length - 1) {
+            return `<div class="roadmap-node" style="border-color: var(--color-nebula-purple)">${step.ko}<span>${step.en}</span></div>`;
+          }
+          return `
+            <div class="roadmap-node">${step.ko}<span>${step.en}</span></div>
+            <div class="roadmap-arrow" aria-hidden="true">&rarr;</div>
+          `;
+        }).join('');
+
+        displayContainer.innerHTML = `
+          <div class="display-text-side">
+            <div class="display-header">
+              <div class="display-title">
+                <h3>${data.title}</h3>
+                <p>${data.sub}</p>
+              </div>
+              <div class="display-meta">
+                <div class="meta-item">대표 수명 경향: <span>${data.lifespan}</span></div>
+                <div class="meta-item">최종 진화 잔해: <span>${data.remnant}</span></div>
+              </div>
+            </div>
+            
+            <div class="roadmap-container">
+              <h4 class="roadmap-title">대표적인 진화 여정 (Stellar Evolutionary Path)</h4>
+              <div class="roadmap-flow">
+                ${roadmapHTML}
+              </div>
+            </div>
+
+            <div class="display-desc">
+              <p>${data.desc}</p>
+            </div>
+          </div>
+          <div class="display-image-side">
+            <img src="${data.image}" onerror="this.src='${data.fallback}'" alt="${data.title} 이미지" class="img-fluid" style="height: 100%; width: 100%; object-fit: ${data.imageFit || 'cover'}; background-color: #000000;">
+          </div>
+        `;
+      };
+
+      // 2. 탭 전환 클릭 이벤트 설정
+      const tabButtons = document.querySelectorAll(".mass-tab-btn");
+      tabButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          // 기존 활성화 해제 및 속성 수정
+          tabButtons.forEach(btn => {
+            btn.classList.remove("active");
+            btn.setAttribute("aria-selected", "false");
+          });
+
+          // 클릭된 버튼 활성화
+          button.classList.add("active");
+          button.setAttribute("aria-selected", "true");
+
+          // 내용 변경 실행
+          const selectedMass = button.getAttribute("data-mass");
+          renderMassContent(selectedMass);
+        });
+      });
+
+      // 초기 기본값 '태양과 비슷한 별' 렌더링
+      renderMassContent("medium");
+
+      // 3. 백색왜성, 중성자별, 블랙홀 모달 제어
+      const modalOverlay = document.getElementById("end-state-modal");
+      const modalTitle = document.getElementById("modal-title");
+      const modalBody = document.getElementById("modal-body-content");
+      const modalCloseBtn = document.getElementById("modal-close-btn");
+      const endCards = document.querySelectorAll(".end-card");
+
+      const openModal = (type) => {
+        const info = modalContents[type];
+        if (!info) return;
+
+        modalTitle.innerText = info.title;
+        modalBody.innerHTML = info.content;
+        
+        modalOverlay.classList.add("open");
+        modalOverlay.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden"; // 배경 스크롤 방지
+      };
+
+      const closeModal = () => {
+        modalOverlay.classList.remove("open");
+        modalOverlay.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = ""; // 배경 스크롤 복구
+      };
+
+      // 세 가지 최후 카드 클릭 이벤트 바인딩
+      endCards.forEach(card => {
+        card.addEventListener("click", () => {
+          const type = card.getAttribute("data-modal");
+          openModal(type);
+        });
+      });
+
+      // 모달 닫기 버튼 이벤트
+      modalCloseBtn.addEventListener("click", closeModal);
+
+      // 모달 외부 배경 클릭 시 닫히도록 설정
+      modalOverlay.addEventListener("click", (e) => {
+        if (e.target === modalOverlay) {
+          closeModal();
+        }
+      });
+
+      // 키보드 ESC 키 입력 시 팝업 닫히도록 설정
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modalOverlay.classList.contains("open")) {
+          closeModal();
+        }
+      });
+
+      // 4. CTA "나의 별 운명 다시 선택하기" 리셋 버튼 로직 추가
+      const ctaResetBtn = document.getElementById("cta-reset-btn");
+      ctaResetBtn.addEventListener("click", (e) => {
+        // 기본 탭인 '태양과 비슷한 별'로 초기화하여 되돌아가도록 지원
+        const defaultTab = document.querySelector('.mass-tab-btn[data-mass="medium"]');
+        if (defaultTab) {
+          defaultTab.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
